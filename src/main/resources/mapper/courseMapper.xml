@@ -16,4 +16,8 @@
     <select id="selectCourseByName" parameterType="string" resultMap="courseMap">
         select * from t_course where course_name=#{_parameter}
     </select>
+
+    <select id="findAllCourseName" resultMap="courseMap">
+        select * from t_course
+    </select>
 </mapper>

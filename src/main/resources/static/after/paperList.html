@@ -103,7 +103,7 @@
                 , groups: 3 //只显示 1 个连续页码
                 , first: "首页" //不显示首页
                 , last: "尾页" //不显示尾页
-                , limit: 10
+                , limit: 5
                 , limits: [5, 10, 20]
 
             }
@@ -117,9 +117,9 @@
                 case 'add':
                     layer.open({
                         type: 2 //此处以iframe举例
-                        , title: '添加视频'
+                        , title: '添加试卷'
                         , area: ['720px', '620px']
-                        , content: '../video/query.do'
+                        , content: 'paperAdd.html'
                     });
                     break;
                 case 'delete':
@@ -155,9 +155,9 @@
             } else if(obj.event === 'edit'){
                 layer.open({
                     type: 2 //此处以iframe举例
-                    , title: '修改视频信息'
+                    , title: '修改试卷信息'
                     , area: ['720px', '620px']
-                    , content: '../video/query.do?id=' + data.id
+                    , content: 'paperModify.html?paperId=' + data.paperId
                 });
             }else if(obj.event === 'detail'){
                 layer.open({

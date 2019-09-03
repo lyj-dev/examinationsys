@@ -83,4 +83,51 @@
             #{question.remark})
         </foreach>
     </insert>
+
+    <update id="updateQuestion" parameterType="question">
+        update t_question
+        <set>
+            <if test="questionName != null">
+                question_name = #{questionName},
+            </if>
+            <if test="optionA != null">
+                option_a = #{optionA},
+            </if>
+            <if test="optionB != null">
+                option_b = #{optionB},
+            </if>
+            <if test="optionC != null">
+                option_c = #{optionC},
+            </if>
+            <if test="optionD != null">
+                option_d = #{optionD},
+            </if>
+            <if test="answer != null">
+                answer = #{answer},
+            </if>
+            <if test="answerDetail != null">
+                answer_detail = #{answerDetail},
+            </if>
+            <if test="courseId != null">
+                course_id = #{courseId},
+            </if>
+            <if test="typeId != null">
+                type_id = #{typeId},
+            </if>
+            <if test="difficulty != null">
+                difficulty = #{difficulty},
+            </if>
+            <if test="remark != null">
+                remark = #{remark},
+            </if>
+            <if test="score != null">
+                score = #{score}
+            </if>
+        </set>
+        where question_id = #{questionId}
+    </update>
+
+    <delete id="deleteOne" parameterType="int">
+        delete from t_question where question_id = #{questionId}
+    </delete>
 </mapper>

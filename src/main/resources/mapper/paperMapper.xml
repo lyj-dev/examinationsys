@@ -42,4 +42,36 @@
         on p.course_id=c.course_id
         where paper_id=#{paperId}
     </select>
+
+    <update id="updatePaper" parameterType="paper">
+        update t_paper
+        <set>
+            <if test="paperName != null">
+                paper_name = #{paperName},
+            </if>
+            <if test="courseId != null">
+                course_id = #{courseId},
+            </if>
+            <if test="questionIds != null">
+                question_id = #{questionIds},
+            </if>
+            <if test="allowTime != null">
+                allow_time = #{allowTime},
+            </if>
+            <if test="address != null">
+                address = #{address},
+            </if>
+            <if test="remark != null">
+                remark = #{remark},
+            </if>
+            <if test="score != null">
+                score = #{score}
+            </if>
+        </set>
+        where paper_id = #{paperId}
+    </update>
+
+    <delete id="deleteOne" parameterType="int">
+        delete from t_paper where paper_id = #{paperId}
+    </delete>
 </mapper>

@@ -7,9 +7,7 @@ import com.xct.examinationsys.entity.User;
 import com.xct.examinationsys.service.UserService;
 import com.xct.examinationsys.utils.PageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
@@ -41,7 +39,6 @@ public class UserController {
         if (userId == null || userId.equals("")) {
             return new JsonResult<>(0, "用户ID为空");
         }
-
         return new JsonResult<>(1, userService.selectUser(userId));
     }
 
@@ -52,7 +49,7 @@ public class UserController {
         } else {
             userService.updateUser(user);
         }
-        return new JsonResult<String>(1, "保存成功");
+        return new JsonResult<>(1, "保存成功");
     }
 
     @RequestMapping("/delete")

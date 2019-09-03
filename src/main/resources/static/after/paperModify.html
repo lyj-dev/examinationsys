@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>试卷修改</title>
+	<link rel="stylesheet" href="../layui/css/layui.css" />
+	<script type="text/javascript" src="../layui/layui.js" ></script>
+	<script type="text/javascript" src="../js/jquery-1.12.2.min.js" ></script>
+
+</head>
+<body>
+
+<form class="layui-form" id="add-form" lay-filter="example">
+	<input hidden type="text" name="paperId">
+	<div class="layui-form-item">
+		<label class="layui-form-label">试卷名：</label>
+		<div class="layui-input-block">
+			<input type="text" name="paperName" lay-verify="title" autocomplete="off" placeholder="请输入试卷名" class="layui-input">
+		</div>
+	</div>
+
+	<div class="layui-form-item">
+		<label class="layui-form-label">科目：</label>
+		<div class="layui-input-block">
+			<select name="courseId" id="courseNameHide" class="courseName" lay-filter="aihao">
+				<option value="">请选择科目...</option>
+
+			</select>
+		</div>
+	</div>
+	<div class="layui-form-item">
+		<label class="layui-form-label">包含题目：</label>
+		<div class="layui-input-block">
+			<input type="text" name="questionIds" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
+		</div>
+	</div>
+	<div class="layui-form-item">
+		<label class="layui-form-label">考试时间(分钟)：</label>
+		<div class="layui-input-block">
+			<input type="text" name="allowTime" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
+		</div>
+	</div>
+	<div class="layui-form-item">
+		<label class="layui-form-label">总分</label>
+		<div class="layui-input-block">
+			<input type="text" name="score" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
+		</div>
+	</div>
+
+	<div class="layui-form-item">
+		<div class="layui-input-block">
+			<button class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+			<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+		</div>
+	</div>
+</form>
+
+<script>
+    layui.use(['form','layer', 'layedit', 'laydate'], function(){
+        var form = layui.form
+            ,layer = layui.layer
+            ,layedit = layui.layedit
+            ,laydate = layui.laydate
+            ,$ = layui.jquery;
+
+        findOne();
+        InitForm();
+        function InitForm() {
+            $.ajax({
+                type: 'post',
+                url: '../course/courseName',
+                dataType: 'json',
+                success: function (map) {
+                    if (map.course.length > 0) {
+                        //加载课程
+                        var courseName = $("#courseNameHide").val();
+                        for (var i = 0; i < map.course.length; i++) {
+                            var title = map.course[i].courseName;
+                            var id = map.course[i].courseId;
+                            if (courseName == title) {
+                                $(".courseName").append('<option value="' + id + '" selected="">' + title + '</option>');
+                            } else {
+                                $(".courseName").append('<option value="' + id + '">' + title + '</option>');
+
+                            }
+                        }
+
+                        form.render('select');
+
+                    } else {
+                        layer.msg("下拉数据加载失败。。。");
+                    }
+
+                }
+            })
+        };
+
+
+        function findOne() {
+            $.ajax({
+                type: "get",
+                url: "../paper/getPaperById" + window.location.search,
+                dataType: "json",
+                success: function (data) {
+                    if (data.code == 1) {
+                        //表单初始赋值
+                        form.val('example', data.info);
+
+
+                    } else {
+                        layer.msg(data.info);
+
+                    }
+                }
+            })
+        }
+
+        //监听提交
+        form.on('submit(demo1)', function(data){
+            $.ajax({
+                type: "post",
+                url: "../paper/addOrUpdate",
+                data: data.field,
+                dataType: "json",
+                success: function (data) {
+                    if (data.code == 1) {
+                        layer.msg("修改成功", {icon: 6, time: 1500},
+                            function () {
+                                var t = parent.layui.table;
+                                var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                                parent.layer.close(index); //再执行关闭
+                            });
+                    } else {
+
+                        layer.alert("修改失败", {icon: 2, time: 2000});
+                    }
+                },
+
+            });
+            return false;
+        });
+
+
+    });
+</script>
+</body>
+</html>

@@ -15,6 +15,10 @@
         select * from t_question_type
     </select>
 
+    <select id="findAllQuestionType" resultMap="questionTypeMap">
+        select * from t_question_type
+    </select>
+
     <select id="selectQuestionTypeByName" parameterType="string" resultMap="questionTypeMap">
         select * from t_question_type where type_name=#{_parameter}
     </select>

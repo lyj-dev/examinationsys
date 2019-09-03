@@ -71,4 +71,71 @@
     <delete id="delete" parameterType="map">
         
     </delete>
+
+    <insert id="registerUser" parameterType="user">
+        insert into t_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="userName != null">
+                user_name,
+            </if>
+            <if test="userPwd != null">
+                user_pwd,
+            </if>
+            <if test="gradeId != null">
+                grade_id,
+            </if>
+            <if test="roleId != null">
+                role_id,
+            </if>
+            <if test="userStateId != null">
+                user_state_id,
+            </if>
+            <if test="email != null">
+                email,
+            </if>
+            <if test="telephone != null">
+                telephone,
+            </if>
+            <if test="remark != null">
+                remark
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId},
+            </if>
+            <if test="userName != null">
+                #{userName},
+            </if>
+            <if test="userPwd != null">
+                #{userPwd},
+            </if>
+            <if test="gradeId != null">
+                #{gradeId},
+            </if>
+            <if test="roleId != null">
+                #{roleId},
+            </if>
+            <if test="userStateId != null">
+                #{userStateId},
+            </if>
+            <if test="email != null">
+                #{email},
+            </if>
+            <if test="telephone != null">
+                #{telephone},
+            </if>
+            <if test="remark != null">
+                #{remark}
+            </if>
+        </trim>
+    </insert>
+
+    <select id="totalQuantity" resultType="int">
+        select count(*)
+            from t_user;
+    </select>
 </mapper>
