@@ -15,4 +15,10 @@ public interface CourseService {
     void updateCourse(Course course);
 
     void delete(int[] id);
+
+    /**
+     * 查询所有的课程
+     * @return 返回的是 Course类对象的集合
+     */
+    List<Course> findAllCourseName();
 }

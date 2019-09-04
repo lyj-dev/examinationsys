@@ -40,26 +40,27 @@ public class PaperController {
 
     @RequestMapping("/getQuestions")
     @ResponseBody
-    public List<Question> getQuestions(Integer paperId) {
-        return paperService.getQuestions(paperId);
+    public List<Question> getQuestions(Integer paperId, String userId) {
+        return paperService.getQuestions(paperId, userId);
     }
 
     @RequestMapping("/getPaperById")
     @ResponseBody
-    public Paper getPaperById(Integer paperId) {
-        return paperService.getPaperById(paperId);
+    public JsonResult<Paper> getPaperById(Integer paperId) {
+        Paper paper = paperService.getPaperById(paperId);
+        return new JsonResult<>(1, paper);
     }
 
     @RequestMapping("/query")
     public JsonResult<Object> queryPaper(Integer paperId) {
         if (paperId == null) {
-            return new JsonResult<Object>(0, "ID为空");
+            return new JsonResult<>(0, "ID为空");
         }
 
         return new JsonResult<>(1, paperService.selectPaper(paperId));
     }
 
-    @RequestMapping(value = "/addOrUpdate")
+    @RequestMapping("/addOrUpdate")
     public JsonResult<String> addOrUpdatePaper(Paper paper) {
         if (paper.getPaperId() == null || paper.getPaperId().equals("")) {
             paperService.addPaper(paper);
@@ -75,4 +76,9 @@ public class PaperController {
         return new JsonResult<>(1, "删除成功");
     }
 
+    @RequestMapping("/deleteOne")
+    public JsonResult<String> deleteOne(Integer paperId) {
+        paperService.deleteOne(paperId);
+        return new JsonResult<>(1, "删除成功");
+    }
 }

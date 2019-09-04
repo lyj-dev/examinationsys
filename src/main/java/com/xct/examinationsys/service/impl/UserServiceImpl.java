@@ -12,7 +12,7 @@ import java.util.Map;
 
 @Service
 public class UserServiceImpl implements UserService {
-    @Autowired
+    @Autowired(required = false)
     private UserDao userDao;
 
     @Override
@@ -40,5 +40,24 @@ public class UserServiceImpl implements UserService {
     @Override
     public void delete(int[] id) {
         userDao.delete(id);
+    }
+
+    @Override
+    public User loginByUserId(String userId) {
+        return userDao.selectUserById(userId);
+    }
+
+    @Override
+    public void registerUser(User user) {
+        user.setUserId(totalQuantity());
+        System.out.println(user);
+        userDao.registerUser(user);
+    }
+
+    @Override
+    public String totalQuantity() {
+        Integer t =  userDao.totalQuantity()+1;
+        String total = t.toString();
+        return total;
     }
 }

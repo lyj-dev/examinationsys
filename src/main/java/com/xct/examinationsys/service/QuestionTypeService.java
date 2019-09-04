@@ -15,4 +15,6 @@ public interface QuestionTypeService {
     void updateQuestionType(QuestionType questionType);
 
     void delete(int[] id);
+
+    List<QuestionType> findAllQuestionType();
 }

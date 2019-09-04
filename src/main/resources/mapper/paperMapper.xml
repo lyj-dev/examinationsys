@@ -74,4 +74,5 @@
     <delete id="deleteOne" parameterType="int">
         delete from t_paper where paper_id = #{paperId}
     </delete>
+
 </mapper>

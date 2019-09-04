@@ -8,6 +8,8 @@ import java.util.List;
 public interface ExamDao {
     List<Exam> findAllExams(Exam exam);
 
+    List<Exam> findAll();
+
     Exam selectExamById(Integer valueOf);
 
     void addExam(Exam exam);

@@ -15,8 +15,12 @@ public class Exam {
     private Integer paperId;
     private String paperName;
     private Date beginTime;
+    private String beginTimeStr;
     private Date endTime;
+    private String endTimeStr;
     private Integer score;
+    private String remark;
+    private String state;
 
     public Integer getExamId() {
         return examId;
@@ -105,5 +109,37 @@ public class Exam {
 
     public void setScore(Integer score) {
         this.score = score;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    public String getBeginTimeStr() {
+        return beginTimeStr;
+    }
+
+    public void setBeginTimeStr(String beginTimeStr) {
+        this.beginTimeStr = beginTimeStr;
+    }
+
+    public String getEndTimeStr() {
+        return endTimeStr;
+    }
+
+    public void setEndTimeStr(String endTimeStr) {
+        this.endTimeStr = endTimeStr;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 }

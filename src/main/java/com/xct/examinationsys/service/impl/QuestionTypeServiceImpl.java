@@ -12,6 +12,7 @@ import java.util.Map;
 
 @Service
 public class QuestionTypeServiceImpl implements QuestionTypeService {
+
     @Autowired
     private QuestionTypeDao questionTypeDao;
 
@@ -40,5 +41,10 @@ public class QuestionTypeServiceImpl implements QuestionTypeService {
     @Override
     public void delete(int[] id) {
         questionTypeDao.delete(id);
+    }
+
+    @Override
+    public List<QuestionType> findAllQuestionType() {
+        return questionTypeDao.findAllQuestionType();
     }
 }

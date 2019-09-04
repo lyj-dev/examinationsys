@@ -17,6 +17,7 @@
         <result column="user_name" property="userName"></result>
         <result column="paper_name" property="paperName"></result>
         <result column="remark" property="remark"></result>
+        <result column="state" property="state"></result>
     </resultMap>
     <select id="findAllExams" parameterType="exam" resultMap="examMap">
         SELECT
@@ -45,4 +46,10 @@
             </if>
         </where>
     </select>
+
+    <insert id="addExam" parameterType="exam" useGeneratedKeys="true"  keyProperty="examId">
+        insert into t_exam_record
+        (exam_name, user_id, paper_id, begin_time, end_time, score, remark, state)
+        values (#{examName}, #{userId},#{paperId},#{beginTimeStr},now(),#{score},#{remark}, #{state})
+    </insert>
 </mapper>

@@ -61,7 +61,7 @@ public class QuestionController {
             // 将json格式的字符串转为指定类型的对象
             List<Question> questionList = objectMapper.readValue(jsonStr, new TypeReference<List<Question>>() {
             });
-            questionService.bathSave(questionList);
+            questionService.batchSave(questionList);
 //            System.out.println(ulist);
 
         } catch (Exception e) {
@@ -95,5 +95,12 @@ public class QuestionController {
         questionService.delete(id);
         return new JsonResult<>(1, "删除成功");
     }
+
+    @RequestMapping("/deleteOne")
+    public JsonResult<String> delete(Integer questionId) {
+        questionService.deleteOne(questionId);
+        return new JsonResult<>(1, "删除成功");
+    }
+
 
 }

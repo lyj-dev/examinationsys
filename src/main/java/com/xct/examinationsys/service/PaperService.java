@@ -17,7 +17,9 @@ public interface PaperService {
 
     void delete(int[] id);
 
-    List<Question> getQuestions(Integer paperId);
+    List<Question> getQuestions(Integer paperId, String userId);
 
     Paper getPaperById(Integer paperId);
+
+    void deleteOne(Integer paperId);
 }

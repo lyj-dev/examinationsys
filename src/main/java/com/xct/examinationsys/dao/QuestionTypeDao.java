@@ -7,8 +7,9 @@ import java.util.List;
 
 public interface QuestionTypeDao {
     List<QuestionType> findAllQuestionTypes(QuestionType questionType);
-
     QuestionType selectQuestionTypeById(Integer valueOf);
+
+    List<QuestionType> findAllQuestionType();
 
     QuestionType selectQuestionTypeByName(String typeName);
 

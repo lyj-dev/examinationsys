@@ -47,7 +47,6 @@
         SELECT
         u.user_id,
         u.user_name,
-        u.user_pwd,
         u.role_id,
         u.user_state_id ,
         u.email,

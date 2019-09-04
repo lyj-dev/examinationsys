@@ -90,6 +90,7 @@
             ,cols: [[
                 {type: 'checkbox', fixed: 'left'}
                 ,{field:'xuhao', title:'序号',  fixed: 'left', width: 60, type: 'numbers'}
+                ,{field:'paperId',  width: 60, style:'display:none;'}
                 ,{field:'paperName', title:'试卷名',  edit: 'text', width: 300}
                 ,{field:'courseName', title:'科目',  edit: 'text', width: 150, sort: true}
                 ,{field:'questionIds', title:'包含题目',  edit: 'text', width: 150, sort: true}
@@ -146,12 +147,31 @@
         //监听行工具事件
         table.on('tool(test)', function(obj){
             var data = obj.data;
-            if(obj.event === 'del'){
-                layer.confirm('真的删除行么', function(index){
-                    submitdata(data.id);
-                    var t = layui.table;
-                    t.reload('videoTable');// 重新加载页面
+            if(obj.event === 'del') {
+                layer.confirm('删除 [id]：', function (index) {
+                    obj.del();
+                    layer.close(index);
+                    //发送请求到后台
+                    $.ajax({
+                        type: "get",
+                        url: "../paper/deleteOne",
+                        data: {paperId: data.paperId},
+                        dataType: "json",
+                        success: function (data) {
+                            if (data.code == 1) {
+                                layer.msg("删除成功!", {
+                                    icon: 6,
+                                    time: 1500
+                                }, function () {
+                                    table.reload('userTable');// 重新加载页面,demo 表示父窗体table标签的id值
+                                });
+                            } else {
+                                alert(data.info)
+                            }
+                        }
+                    })
                 });
+
             } else if(obj.event === 'edit'){
                 layer.open({
                     type: 2 //此处以iframe举例

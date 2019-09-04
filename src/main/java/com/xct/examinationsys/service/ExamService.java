@@ -8,6 +8,7 @@ import java.util.Map;
 public interface ExamService {
     List<Exam> findAllExams(Map<String, Integer> pageMap, Exam exam);
 
+
     Exam selectExam(Integer id);
 
     void addExam(Exam exam);
@@ -15,4 +16,6 @@ public interface ExamService {
     void updateExam(Exam exam);
 
     void delete(int[] id);
+
+    void submitPaper(Map<String, String[]> parameterMap);
 }

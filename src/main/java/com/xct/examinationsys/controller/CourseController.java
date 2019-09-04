@@ -48,7 +48,7 @@ public class CourseController {
         return new JsonResult<>(1, courseService.selectCourse(courseId));
     }
 
-    @RequestMapping(value = "/addOrUpdate")
+    @RequestMapping("/addOrUpdate")
     public JsonResult<String> addOrUpdateCourse(Course course) {
         if (course.getCourseId() == null) {
             courseService.addCourse(course);
@@ -62,5 +62,15 @@ public class CourseController {
     public JsonResult<String> delete(int[] id) {
         courseService.delete(id);
         return new JsonResult<>(1, "删除成功");
+    }
+
+    @RequestMapping("/courseName")
+    public Map<String, Object> findAllCourseName(){
+        Map<String, Object> map = new HashMap<>();
+        List<Course> course = courseService.findAllCourseName();
+
+        map.put("course", course);
+        return map;
+
     }
 }

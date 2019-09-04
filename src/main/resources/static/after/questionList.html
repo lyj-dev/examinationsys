@@ -162,17 +162,35 @@
         table.on('tool(test)', function(obj){
             var data = obj.data;
             if(obj.event === 'del'){
-                layer.confirm('真的删除行么', function(index){
-                    submitdata(data.id);
-                    var t = layui.table;
-                    t.reload('videoTable');// 重新加载页面
+                layer.confirm('删除 [id]：', function (index) {
+                    obj.del();
+                    layer.close(index);
+                    //发送请求到后台
+                    $.ajax({
+                        type: "get",
+                        url: "../question/deleteOne",
+                        data: {questionId: data.questionId},
+                        dataType: "json",
+                        success: function (data) {
+                            if (data.code == 1) {
+                                layer.msg("删除成功!", {
+                                    icon: 6,
+                                    time: 1500
+                                }, function () {
+                                    table.reload('questionTable');// 重新加载页面,demo 表示父窗体table标签的id值
+                                });
+                            } else {
+                                alert(data.info)
+                            }
+                        }
+                    })
                 });
             } else if(obj.event === 'edit'){
                 layer.open({
                     type: 2 //此处以iframe举例
-                    , title: '修改视频信息'
+                    , title: '修改试题信息'
                     , area: ['720px', '620px']
-                    , content: '../video/query.do?id=' + data.id
+                    , content: 'questionModify.html?questionId=' + data.questionId
                 });
             }
         });

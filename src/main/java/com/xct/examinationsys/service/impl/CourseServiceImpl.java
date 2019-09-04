@@ -41,4 +41,10 @@ public class CourseServiceImpl implements CourseService {
     public void delete(int[] id) {
         courseDao.delete(id);
     }
+
+    @Override
+    public List<Course> findAllCourseName() {
+        List<Course> courseList = courseDao.findAllCourseName();
+        return courseList;
+    }
 }

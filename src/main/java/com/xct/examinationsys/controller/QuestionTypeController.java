@@ -36,10 +36,21 @@ public class QuestionTypeController {
         return PageUtil.pubPage(total, list);
     }
 
+
+    @RequestMapping("/typeName")
+    public Map<String, Object> findAllCourseName(){
+        Map<String, Object> map = new HashMap<>();
+        List<QuestionType> type = questionTypeService.findAllQuestionType();
+
+        map.put("type", type);
+        return map;
+
+    }
+
     @RequestMapping("/query")
     public JsonResult<Object> queryQuestionType(Integer questionTypeId) {
         if (questionTypeId == null) {
-            return new JsonResult<Object>(0, "ID为空");
+            return new JsonResult<>(0, "ID为空");
         }
 
         return new JsonResult<>(1, questionTypeService.selectQuestionType(questionTypeId));

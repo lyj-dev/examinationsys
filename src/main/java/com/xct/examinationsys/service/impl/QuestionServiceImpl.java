@@ -15,11 +15,11 @@ import java.util.Map;
 
 @Service
 public class QuestionServiceImpl implements QuestionService {
-    @Autowired
+    @Autowired(required = false)
     private QuestionDao questionDao;
-    @Autowired
+    @Autowired(required = false)
     private CourseDao courseDao;
-    @Autowired
+    @Autowired(required = false)
     private QuestionTypeDao questionTypeDao;
 
     @Override
@@ -50,12 +50,17 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public void bathSave(List<Question> questionList) {
+    public void batchSave(List<Question> questionList) {
         // 设置所有导入的题目的typeId和courseId
         for (Question q : questionList) {
             q.setCourseId(courseDao.selectCourseByName(q.getCourseName()).getCourseId());
             q.setTypeId(questionTypeDao.selectQuestionTypeByName(q.getTypeName()).getTypeId());
         }
-        questionDao.bathInsert(questionList);
+        questionDao.batchInsert(questionList);
+    }
+
+    @Override
+    public void deleteOne(Integer questionId) {
+        questionDao.deleteOne(questionId);
     }
 }

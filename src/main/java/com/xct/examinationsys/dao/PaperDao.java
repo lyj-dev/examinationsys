@@ -16,6 +16,8 @@ public interface PaperDao {
 
     void delete(int[] id);
 
+    void deleteOne(Integer paperId);
+
     Paper findPaperById(Integer paperId);
 
     Paper getPaperById(Integer paperId);

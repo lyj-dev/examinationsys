@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -60,6 +61,13 @@ public class ExamController {
     public JsonResult<String> delete(int[] id) {
         examService.delete(id);
         return new JsonResult<>(1, "删除成功");
+    }
+
+    @RequestMapping("/submitPaper")
+    public JsonResult<String> submitPaper(HttpServletRequest request) {
+        Map<String, String[]> parameterMap = request.getParameterMap();
+        examService.submitPaper(parameterMap);
+        return new JsonResult<>(1, "提交成功！");
     }
 
 }

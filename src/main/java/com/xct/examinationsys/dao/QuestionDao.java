@@ -8,7 +8,7 @@ import java.util.List;
 public interface QuestionDao {
     List<Question> findAllQuestions(Question question);
 
-    Question selectQuestionById(Integer valueOf);
+    Question selectQuestionById(Integer questionId);
 
     void addQuestion(Question question);
 
@@ -16,7 +16,9 @@ public interface QuestionDao {
 
     void delete(int[] id);
 
+    void deleteOne(Integer questionId);
+
     List<Question> getQuestions(String[] questionIds);
 
-    void bathInsert(List<Question> questionList);
+    void batchInsert(List<Question> questionList);
 }

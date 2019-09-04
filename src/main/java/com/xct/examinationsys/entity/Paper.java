@@ -21,4 +21,8 @@ public class Paper {
     private Integer score;
     private String paperState;
 
+    private String address;
+    private String remark;
+
+
 }

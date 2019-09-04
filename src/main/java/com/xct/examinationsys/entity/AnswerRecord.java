@@ -5,17 +5,19 @@ import lombok.Data;
 @Data
 public class AnswerRecord {
     private Integer recordId;
-    private Integer userId;
-    private String user;
+    private String userId;
+    private String userName;
     private Integer courseId;
-    private String course;
-    private Integer gradeId;
-    private String grade;
+    private String courseName;
+    private Integer paperId;
+    private String paperName;
     private String userAnswer;
-    private String question;
+    private String questionName;
     private Integer questionId;
     private Integer typeId;
-    private String type;
+    private String typeName;
     private String result;
     private String state;
+    private Integer score;
+    private Integer examId;
 }
