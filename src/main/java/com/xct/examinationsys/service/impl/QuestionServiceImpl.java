@@ -63,4 +63,15 @@ public class QuestionServiceImpl implements QuestionService {
     public void deleteOne(Integer questionId) {
         questionDao.deleteOne(questionId);
     }
+
+    @Override
+    public List<Question> selectQuestionsByTypeId(int typeId, int courseId, int numbers) {
+        if (numbers < 0) {
+            throw new RuntimeException("题目数量不能为负数");
+        }
+        if (numbers == 0) {
+            return null;
+        }
+        return questionDao.selectQuestionsByTypeId(typeId, courseId, numbers);
+    }
 }

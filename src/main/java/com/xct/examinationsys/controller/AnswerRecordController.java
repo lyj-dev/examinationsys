@@ -28,19 +28,17 @@ public class AnswerRecordController {
 
     @RequestMapping("/list")
     @ResponseBody
-    public Map<String, Object> listAnswerRecords(Integer page, Integer limit) {
+    public Map<String, Object> listAnswerRecords(Integer page, Integer limit, AnswerRecord answerRecord) {
         Map<String, Integer> pageMap = new HashMap<>();
         pageMap.put("page", page);
         pageMap.put("limit", limit);
 
-        List<AnswerRecord> list = answerRecordService.findAllAnswerRecords(pageMap);
+        List<AnswerRecord> list = answerRecordService.findAllAnswerRecords(pageMap, answerRecord);
 
         long total = ((Page) list).getTotal();
 
         return PageUtil.pubPage(total, list);
     }
-
-
 
     @RequestMapping("/query")
     public JsonResult<Object> queryAnswerRecord(Integer answerRecordId) {
@@ -50,6 +48,12 @@ public class AnswerRecordController {
 
         return new JsonResult<>(1, answerRecordService.selectAnswerRecord(answerRecordId));
     }
+
+    @RequestMapping("/correct")
+    public JsonResult<Object> correct(AnswerRecord answerRecord) {
+        return answerRecordService.correct(answerRecord);
+    }
+
 
     @RequestMapping("/delete")
     public JsonResult<String> delete(int[] id) {

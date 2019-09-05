@@ -38,4 +38,5 @@ public interface UserService {
      */
     public String totalQuantity();
 
+    User selectAdminUserById(User admin);
 }

@@ -21,15 +21,17 @@
         <result column="state" property="state"></result>
         <result column="score" property="score"></result>
         <result column="exam_id" property="examId"></result>
+        <result column="answer" property="answer"></result>
 
     </resultMap>
-    <select id="findAllAnswerRecords" resultMap="answerRecordMap">
+    <select id="findAllAnswerRecords" parameterType="answerRecord" resultMap="answerRecordMap">
         SELECT
             ar.*,
             u.user_name,
             c.course_name,
             p.paper_name,
             q.question_name,
+            q.answer,
             qt.type_name
         FROM
             t_answer_record ar
@@ -38,6 +40,30 @@
             LEFT JOIN t_paper p ON ar.paper_id = p.paper_id
             LEFT JOIN t_question q ON ar.question_id = q.question_id
             LEFT JOIN t_question_type qt ON ar.type_id = qt.type_id
+        <where>
+            <if test="state != null and state != ''">
+                and ar.state=#{state}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectAnswerRecordById" parameterType="int" resultMap="answerRecordMap">
+        SELECT
+            ar.*,
+            u.user_name,
+            c.course_name,
+            p.paper_name,
+            q.question_name,
+            q.answer,
+            qt.type_name
+        FROM
+            t_answer_record ar
+            LEFT JOIN t_user u ON ar.user_id = u.user_id
+            LEFT JOIN t_course c ON ar.course_id = c.course_id
+            LEFT JOIN t_paper p ON ar.paper_id = p.paper_id
+            LEFT JOIN t_question q ON ar.question_id = q.question_id
+            LEFT JOIN t_question_type qt ON ar.type_id = qt.type_id
+        WHERE ar.answer_record_id=#{id}
     </select>
 
     <insert id="batchInsertAnswerRecord" parameterType="list">
@@ -67,5 +93,25 @@
             )
         </foreach>
     </insert>
+
+    <update id="updateAnswerRecord" parameterType="answerRecord">
+        update t_answer_record
+        set
+            user_id=#{userId},
+            course_id=#{courseId},
+            user_answer=#{userAnswer},
+            question_id=#{questionId},
+            type_id=#{typeId},
+            result=#{result},
+            state=#{state},
+            paper_id=#{paperId},
+            score=#{score},
+            exam_id=#{examId}
+        where answer_record_id=#{recordId}
+    </update>
+
+    <select id="getUncorrectedNumByExamId" parameterType="int" resultType="int">
+        select count(1) from t_answer_record where state="未改" and exam_id=#{examId}
+    </select>
 
 </mapper>

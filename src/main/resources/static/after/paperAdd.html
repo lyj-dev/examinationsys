@@ -21,27 +21,45 @@
 		<label class="layui-form-label">科目：</label>
 		<div class="layui-input-block">
 			<select name="courseId" id="courseNameHide" class="courseName" lay-filter="aihao">
-				<option value="">请选择科目...</option>
+				<option value="">--请选择科目--</option>
 
 			</select>
 		</div>
 	</div>
 	<div class="layui-form-item">
-		<label class="layui-form-label">包含题目：</label>
+		<label class="layui-form-label">单选题个数：</label>
 		<div class="layui-input-block">
-			<input type="text" name="questionIds" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
+			<input type="text" name="singleChoiceNum" lay-verify="title" autocomplete="off" class="layui-input">
+		</div>
+	</div>
+	<div class="layui-form-item">
+		<label class="layui-form-label">多选题个数：</label>
+		<div class="layui-input-block">
+			<input type="text" name="multiChoicNum" lay-verify="title" autocomplete="off" class="layui-input">
+		</div>
+	</div>
+	<div class="layui-form-item">
+		<label class="layui-form-label">判断题个数：</label>
+		<div class="layui-input-block">
+			<input type="text" name="ToFNum" lay-verify="title" autocomplete="off" class="layui-input">
+		</div>
+	</div>
+	<div class="layui-form-item">
+		<label class="layui-form-label">简答题个数：</label>
+		<div class="layui-input-block">
+			<input type="text" name="shortAnswerNum" lay-verify="title" autocomplete="off" class="layui-input">
 		</div>
 	</div>
 	<div class="layui-form-item">
 		<label class="layui-form-label">考试时间(分钟)：</label>
 		<div class="layui-input-block">
-			<input type="text" name="allowTime" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
+			<input type="text" name="allowTime" lay-verify="title" autocomplete="off" class="layui-input">
 		</div>
 	</div>
 	<div class="layui-form-item">
 		<label class="layui-form-label">总分</label>
 		<div class="layui-input-block">
-			<input type="text" name="score" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
+			<input type="text" name="score" lay-verify="title" autocomplete="off"  class="layui-input">
 		</div>
 	</div>
 

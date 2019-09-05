@@ -20,4 +20,5 @@ public class AnswerRecord {
     private String state;
     private Integer score;
     private Integer examId;
+    private String answer;
 }

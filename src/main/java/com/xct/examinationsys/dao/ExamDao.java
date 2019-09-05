@@ -10,7 +10,7 @@ public interface ExamDao {
 
     List<Exam> findAll();
 
-    Exam selectExamById(Integer valueOf);
+    Exam selectExamById(int examId);
 
     void addExam(Exam exam);
 

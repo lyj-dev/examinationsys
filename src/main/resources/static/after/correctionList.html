@@ -12,27 +12,17 @@
 <body>
 
 <div style="height: 70px;text-align: center; background-color: #C8EBFA;">
-    <h1 style="text-align: center;padding-top: 20px">答题记录</h1>
+    <h1 style="text-align: center;padding-top: 20px">未改题目列表</h1>
 </div>
 
 
 <table class="layui-hide" id="test" lay-filter="test" style="margin-top: 7%"></table>
 
-<script type="text/html" id="toolbarDemo">
-    <div class="layui-btn-container">
-        <div class="layui-table-tool-temp">
-            <div class="layui-inline" lay-event="add">
-                <i class="layui-icon layui-icon-add-1"></i>
-            </div>
-            <div class="layui-inline" lay-event="delete">
-                <i class="layui-icon layui-icon-delete"><span id="delNum"></span></i>
-            </div>
-        </div>
-    </div>
-</script>
-
 <script type="text/html" id="barDemo">
 
+    <a class="layui-btn layui-btn-xs" lay-event="correct">
+        批改
+    </a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">
         <i class="layui-icon"></i>
     </a>
@@ -64,24 +54,21 @@
     layui.use('table', function(){
         var table = layui.table;
         table.render({
-            id: "examTable"
+            id: "correctTable"
             ,elem: '#test'
-            ,url:'../answerRecord/list'
+            ,url:'../answerRecord/list?state=未改'
             ,title: '考试记录'
             ,cols: [[
                 {type: 'checkbox', fixed: 'left'}
                 ,{field:'recordId', title:'序号',  fixed: 'left', width: 60, type: 'numbers'}
-                ,{field:'userId', title:'学号',  edit: 'text', width: 150}
                 ,{field:'courseName', title:'科目',  edit: 'text', width: 100}
-                ,{field:'score', title:'题目得分', width: 150}
                 ,{field:'paperName', title:'试卷名称', width: 200}
-                ,{field:'userAnswer', title:'用户答案',  edit: 'text', width: 100}
-                ,{field:'answer', title:'正确答案',  edit: 'text', width: 100}
                 ,{field:'questionName', title:'题目',  edit: 'text', width: 200}
-                ,{field:'typeName', title:'题目类型',sort: true,width: 150}
-                ,{field:'result', title:'结果', width: 100}
+                ,{field:'answer', title:'参考答案',  edit: 'text', width: 100}
+                ,{field:'userAnswer', title:'用户答案',  edit: 'text', width: 100}
+                ,{field:'typeName', title:'题目类型',sort: true,width: 100}
                 ,{field:'state', title:'批改状态', width: 150}
-                ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width: 100}
+                ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width: 200}
             ]]
             ,page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
                 layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'] //自定义分页布局
@@ -102,15 +89,23 @@
                 layer.confirm('真的删除行么', function(index){
                     submitdata(data.id);
                     var t = layui.table;
-                    t.reload('videoTable');// 重新加载页面
+                    t.reload('correctTable');// 重新加载页面
                 });
+            }
+            if(obj.event === 'correct'){
+                layer.open({
+                    type: 2 //此处以iframe举例
+                    , title: '批改试题'
+                    , area: ['720px', '620px']
+                    , content: 'correct.html?answerRecordId=' + data.recordId
+                })
             }
         });
 
         var active = {
             reload: function(){
                 //执行重载
-                table.reload('examTable', {
+                table.reload('correctTable', {
                     page: {
                         curr: 1 //重新从第 1 页开始
                     }

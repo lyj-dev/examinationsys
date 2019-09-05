@@ -41,7 +41,7 @@ public class ExamServiceImpl implements ExamService {
     }
 
     @Override
-    public Exam selectExam(Integer id) {
+    public Exam selectExamById(Integer id) {
         return examDao.selectExamById(id);
     }
 
@@ -155,6 +155,7 @@ public class ExamServiceImpl implements ExamService {
         examRecord.setExamName(paper.getPaperName());
         examRecord.setPaperId(paperId);
         examRecord.setUserId(userId);
+        examRecord.setBeginTime(DateUtil.strToDate(beginTime));
         examRecord.setBeginTimeStr(beginTime);
         examRecord.setEndTimeStr(DateUtil.formateData(new Date()));
         examRecord.setScore(examScore);
@@ -166,9 +167,7 @@ public class ExamServiceImpl implements ExamService {
         for (AnswerRecord a : answerRecordList) {
             a.setExamId(examRecord.getExamId());
         }
-
         answerRecordDao.batchInsertAnswerRecord(answerRecordList);
-
     }
 
 }

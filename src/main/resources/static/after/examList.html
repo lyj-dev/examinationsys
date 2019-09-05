@@ -99,6 +99,7 @@
                 ,{field:'paperName', title:'试卷',  edit: 'text', width: 150, sort: true}
                 ,{field:'beginTime', title:'开始时间',  edit: 'text', width: 200, sort: true}
                 ,{field:'endTime', title:'结束时间',sort: true,width: 200}
+                ,{field:'state', title:'批改状态', width: 100}
                 ,{field:'score', title:'得分', width: 100}
                 ,{field:'remark', title:'备注', width: 200}
                 ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width: 100}
@@ -109,8 +110,8 @@
                 , groups: 3 //只显示 1 个连续页码
                 , first: "首页" //不显示首页
                 , last: "尾页" //不显示尾页
-                , limit: 5
-                , limits: [5, 10, 20]
+                , limit: 8
+                , limits: [5,8, 10, 20]
 
             }
         });

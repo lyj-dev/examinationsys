@@ -49,4 +49,5 @@ public interface UserDao {
     public Integer totalQuantity();
 
 
+    User selectAdminUserById(User admin);
 }

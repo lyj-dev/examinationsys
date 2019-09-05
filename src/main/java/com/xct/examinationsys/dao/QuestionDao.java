@@ -2,6 +2,7 @@ package com.xct.examinationsys.dao;
 
 
 import com.xct.examinationsys.entity.Question;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -21,4 +22,6 @@ public interface QuestionDao {
     List<Question> getQuestions(String[] questionIds);
 
     void batchInsert(List<Question> questionList);
+
+    List<Question> selectQuestionsByTypeId(@Param("typeId") int typeId, @Param("courseId") int courseId,  @Param("numbers") int numbers);
 }

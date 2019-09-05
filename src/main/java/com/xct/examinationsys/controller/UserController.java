@@ -54,19 +54,35 @@ public class UserController {
         Map<String, Object> map = new HashMap<>();
         //调用service进行查询用户的信息
         User user = userService.loginByUserId(userId);
-
-        if (user.getUserPwd().equals(userPwd)){
-
+        if (user == null) {
+            map.put("code", "0");
+            map.put("info", "账号或密码错误");
+        } else if (user.getUserPwd().equals(userPwd)){
             //根据name生成 token
             String token = MD5Utils.md5(userId + "heihei");
             map.put("token",token);
-            map.put("user", user);
-
             // 将 token写到redis中,并设置其有效时间
             redisTemplate.opsForValue().set(token, userId);
             redisTemplate.expire(token, 1800, TimeUnit.SECONDS);
 
+        } else {
+            map.put("code", "0");
+            map.put("info", "账号或密码错误");
         }
+        return map;
+    }
+    @RequestMapping("/admin/login.do")
+    public Map<String, Object> adminLogin(User admin){
+        Map<String, Object> map = new HashMap<>();
+        //调用service进行查询用户的信息
+        User adminUser = userService.selectAdminUserById(admin);
+        if (adminUser == null) {
+            map.put("code", 0);
+            map.put("info", "账号或密码错误");
+        } else {
+            map = login(admin.getUserId(), admin.getUserPwd());
+        }
+
         return map;
     }
 
@@ -96,5 +112,15 @@ public class UserController {
     public JsonResult<String> delete(int[] id) {
         userService.delete(id);
         return new JsonResult<>(1, "删除成功");
+    }
+
+    @RequestMapping("/getUserInfo")
+    public JsonResult<User> getInfo(String token) {
+        String userId = redisTemplate.opsForValue().get(token);
+        if (userId == null) {
+            return new JsonResult<>(0, null);
+        }
+        User user = userService.selectUser(userId);
+        return new JsonResult<>(1, user);
     }
 }

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>批改</title>
+	<link rel="stylesheet" href="../layui/css/layui.css" />
+	<script type="text/javascript" src="../layui/layui.js" ></script>
+	<script type="text/javascript" src="../js/jquery-1.12.2.min.js" ></script>
+	<style type="text/css">
+		.myclass {
+			height: 100px;
+			width: 100px;
+		}
+	</style>
+
+</head>
+<body>
+
+<form class="layui-form" id="add-form" lay-filter="example">
+	<input type="hidden" name="recordId" id="recordId">
+	<div class="layui-form-item layui-form-text">
+		<label class="layui-form-label">题目描述：</label>
+		<div class="layui-input-block">
+			<textarea id="questionName" name="detail" class="layui-textarea" style="width: 500px;height: 140px" readonly="readonly"></textarea>
+		</div>
+	</div>
+	<div class="layui-form-item layui-form-text">
+		<label class="layui-form-label">参考答案：</label>
+		<div class="layui-input-block">
+			<textarea id="answer" name="detail" class="layui-textarea" style="width: 500px;height: 140px" readonly="readonly"></textarea>
+		</div>
+	</div>
+	<div class="layui-form-item layui-form-text">
+		<label class="layui-form-label">用户答案：</label>
+		<div class="layui-input-block">
+			<textarea id="userAnswer" name="detail" class="layui-textarea" style="width: 500px;height: 140px" readonly="readonly"></textarea>
+		</div>
+	</div>
+
+
+	<div class="layui-form-item">
+		<label class="layui-form-label">打分：</label>
+		<div class="layui-input-block">
+			<input type="text" name="score" lay-verify="title"class="layui-input" style="width: 100px">
+		</div>
+	</div>
+
+	<div class="layui-form-item">
+		<div class="layui-input-block">
+			<button class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+			<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+		</div>
+	</div>
+</form>
+
+<script>
+    layui.use(['form','layer', 'layedit', 'laydate'], function(){
+        var form = layui.form
+            ,layer = layui.layer
+            ,layedit = layui.layedit
+            ,laydate = layui.laydate
+            ,$ = layui.jquery;
+
+        InitForm();
+        function InitForm() {
+            $.ajax({
+                type: 'post',
+                url: '../answerRecord/query' + window.location.search,
+                dataType: 'json',
+                success: function (data) {
+                	if (data.code == 1) {
+                		var answerRecord = data.info;
+                		$("#recordId").val(answerRecord.recordId);
+                		$("#questionName").html(answerRecord.questionName);
+                		$("#userAnswer").html(answerRecord.userAnswer);
+                		$("#answer").html(answerRecord.answer);
+					} else {
+                		alert("获取数据失败。。。请重试。。");
+					}
+
+                }
+            })
+        }
+
+        //监听提交
+        form.on('submit(demo1)', function(data){
+            $.ajax({
+                type: "post",
+                url: "../answerRecord/correct",
+                data: data.field,
+                dataType: "json",
+                success: function (data) {
+                    if (data.code === 1) {
+                        layer.msg("修改成功", {icon: 6, time: 1500},
+                            function () {
+                                var t = parent.layui.table;
+								t.reload('correctTable');// 重新加载页面,demo 表示父窗体table标签的id值
+                                var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                                parent.layer.close(index); //再执行关闭
+                            });
+                    } else {
+                        layer.alert("修改失败", {icon: 2, time: 2000});
+                    }
+                }
+
+            });
+            return false;
+        });
+
+
+    });
+</script>
+
+</body>
+</html>

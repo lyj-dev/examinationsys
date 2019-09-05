@@ -60,4 +60,9 @@ public class UserServiceImpl implements UserService {
         String total = t.toString();
         return total;
     }
+
+    @Override
+    public User selectAdminUserById(User admin) {
+        return userDao.selectAdminUserById(admin);
+    }
 }

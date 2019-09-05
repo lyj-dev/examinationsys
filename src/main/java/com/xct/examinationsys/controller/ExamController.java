@@ -41,10 +41,9 @@ public class ExamController {
     @RequestMapping("/query")
     public JsonResult<Object> queryExam(Integer examId) {
         if (examId == null) {
-            return new JsonResult<Object>(0, "ID为空");
+            return new JsonResult<>(0, "ID为空");
         }
-
-        return new JsonResult<>(1, examService.selectExam(examId));
+        return new JsonResult<>(1, examService.selectExamById(examId));
     }
 
     @RequestMapping(value = "/addOrUpdate")

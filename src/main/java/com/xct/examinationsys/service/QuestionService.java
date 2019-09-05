@@ -19,4 +19,6 @@ public interface QuestionService {
     void batchSave(List<Question> questionList);
 
     void deleteOne(Integer questionId);
+
+    List<Question> selectQuestionsByTypeId( int typeId,  int courseId,  int numbers);
 }

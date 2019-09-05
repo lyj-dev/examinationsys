@@ -46,10 +46,38 @@
             </if>
         </where>
     </select>
+    <select id="selectExamById" parameterType="int" resultMap="examMap">
+        SELECT
+        e.*,
+        u.user_name,
+        p.course_id,
+        p.paper_name,
+        c.course_name
+        FROM
+        t_exam_record e
+        INNER JOIN t_user u ON e.user_id = u.user_id
+        INNER JOIN t_paper p ON e.paper_id = p.paper_id
+        INNER JOIN t_course c ON p.course_id = c.course_id
+        where e.exam_id=#{examId}
+    </select>
 
     <insert id="addExam" parameterType="exam" useGeneratedKeys="true"  keyProperty="examId">
         insert into t_exam_record
         (exam_name, user_id, paper_id, begin_time, end_time, score, remark, state)
-        values (#{examName}, #{userId},#{paperId},#{beginTimeStr},now(),#{score},#{remark}, #{state})
+        values (#{examName}, #{userId},#{paperId},#{beginTime},now(),#{score},#{remark}, #{state})
     </insert>
+
+    <update id="updateExam" parameterType="exam">
+        update t_exam_record
+        set
+            exam_name=#{examName},
+            user_id=#{userId},
+            paper_id=#{paperId},
+            begin_time=#{beginTime},
+            end_time=#{endTime},
+            score=#{score},
+            remark=#{remark},
+            state=#{state}
+        where exam_id=#{examId}
+    </update>
 </mapper>

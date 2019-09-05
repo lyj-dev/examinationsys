@@ -141,4 +141,8 @@
         delete from t_question where question_id = #{questionId}
     </delete>
 
+    <select id="selectQuestionsByTypeId" parameterType="map" resultMap="questionMap">
+        select * From t_question where type_id=#{typeId} and course_id=#{courseId} Order By rand() Limit #{numbers}
+    </select>
+
 </mapper>

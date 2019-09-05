@@ -10,7 +10,7 @@ public class Paper {
     private String paperId;
     private String paperName;
 
-    private String courseId;
+    private Integer courseId;
     private String courseName;
 
     private String questionIds;
@@ -21,7 +21,17 @@ public class Paper {
     private Integer score;
     private String paperState;
 
-    private String address;
+    // 选择题数目
+    private Integer singleChoiceNum;
+    //多选题数目
+    private Integer multiChoicNum;
+    //天空题数目
+    private Integer complNum;
+    //判断题数目
+    private Integer ToFNum;
+    // 简答题数目
+    private Integer shortAnswerNum;
+
     private String remark;
 
 

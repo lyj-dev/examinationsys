@@ -4,14 +4,14 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-		<title>layout 后台大布局 - Layui</title>
+		<title>系统后台</title>
 		<link rel="stylesheet" href="../layui/css/layui.css">
 	</head>
 
 	<body class="layui-layout-body">
 		<div class="layui-layout layui-layout-admin">
 			<div class="layui-header">
-				<div class="layui-logo">layui 后台布局</div>
+				<div class="layui-logo">系统后台</div>
 				<!-- 头部区域（可配合layui已有的水平导航） -->
 				<ul class="layui-nav layui-layout-left">
 					<li class="layui-nav-item">
@@ -55,8 +55,7 @@
 				<div class="layui-side-scroll">
 					<!-- 左侧导航区域（可配合layui已有的垂直导航） -->
 					<ul class="layui-nav layui-nav-tree" lay-filter="test" id="menus">
-						<li class="layui-nav-item"><a href="javascript:loadPage('questionType.html')" style="height: 80px;padding-top: 30px"><b>统计</b></a></li>
-
+						<li class="layui-nav-item"><a href="javascript:loadPage('statistic.html')" style="height: 80px;padding-top: 30px"><b>统计</b></a></li>
 					</ul>
 
 				</div>
@@ -64,52 +63,13 @@
 
 			<div class="layui-body">
 				<!-- 内容主体区域 -->
-				<div style="padding: 15px;">内容主体区域</div>
+				<iframe name="myframe" id="myframe" width="100%" height="100%" frameborder="0" src="statistic.html"></iframe>
 			</div>
 
-			<div class="layui-footer">
-				<!-- 底部固定区域 -->
-				© layui.com - 底部固定区域
-			</div>
 		</div>
 		<script src="../layui/layui.js"></script>
 		<script type="text/javascript" src="../js/jquery-1.12.2.min.js" ></script>
-		<script>
-			//JavaScript代码区域
-			layui.use('element', function() {
-				var element = layui.element;
 
-				$.ajax({
-					type:"get",
-					url:"menu.json",
-					dataType:"json",
-					success:function(data){
-						var html = "";
-						$(data).each(function(){
-							html += '<li class="layui-nav-item layui-nav-itemed">';
-							html += '<a class="" href="javascript:;">' + this.pname + '</a>';
-							html += '<dl class="layui-nav-child">';
-							var cmenus = this.cmenu;
-							$(cmenus).each(function(){
-								html += '<dd>';
-								html += '	<a href="' + this.url + '">' + this.cname + '</a>';
-								html += '</dd>';
-							})
-								
-								
-							html += '</dl>';
-							html += '</li>';
-						})
-						$("#menus").append($(html));
-						
-						// 针对动态绑定的数据，进行初始化操作
-						element.render();
-						//element.init()
-					}
-				})
-
-			});
-		</script>
 	</body>
 
 </html>

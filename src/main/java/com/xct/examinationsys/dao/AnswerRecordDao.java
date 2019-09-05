@@ -5,7 +5,7 @@ import com.xct.examinationsys.entity.AnswerRecord;
 import java.util.List;
 
 public interface AnswerRecordDao {
-    List<AnswerRecord> findAllAnswerRecords();
+    List<AnswerRecord> findAllAnswerRecords(AnswerRecord answerRecord);
 
     /**
      * 查询所有的课程
@@ -15,7 +15,7 @@ public interface AnswerRecordDao {
 
     AnswerRecord selectAnswerRecordByName(String answerRecordName);
 
-    AnswerRecord selectAnswerRecordById(Integer valueOf);
+    AnswerRecord selectAnswerRecordById(int answerRecordId);
 
     void addAnswerRecord(AnswerRecord answerRecord);
 
@@ -24,4 +24,6 @@ public interface AnswerRecordDao {
     void updateAnswerRecord(AnswerRecord answerRecord);
 
     void delete(int[] id);
+
+    int getUncorrectedNumByExamId(int examId);
 }

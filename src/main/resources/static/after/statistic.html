@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>统计</title>
+    <link rel="stylesheet" href="../layui/css/layui.css" media="all">
+    <!-- Jquery Js -->
+    <script type="text/javascript" src="../js/jquery-1.12.2.min.js"></script>
+    <!-- Layui Js -->
+    <script type="text/javascript" src="../layui/layui.js"></script>
+    <script type="text/javascript" src="../js/echarts.min.js"></script>
+    <script src="../js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+
+<div style="margin-top: 5%;margin-left: 10%; font-size: larger; font-family: 楷体; line-height: 20px">
+
+    <div>
+        <h3>
+            最高分：<span id="topJavaScore"></span>
+        </h3>
+    </div>
+    <div>
+        <h3>
+            平均分：<span id="avrageJavaScore"></span>
+        </h3>
+
+    </div>
+    <div>
+        <h3>
+            最低分：<span id="lowestJavaScore"></span>
+        </h3>
+
+    </div>
+
+
+</div>
+
+
+
+<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+<div id="main" style="width: 600px;height:400px;margin-top: 5%;margin-left: 20%;"></div>
+<script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main'));
+
+    // 指定图表的配置项和数据
+    var option = {
+        title : {
+            text: 'Java学科各个分数段人数分布',
+            x:'center'
+        },
+        tooltip : {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        legend: {
+            orient: 'vertical',
+            left: 'left',
+            data: ['不及格','及格','中等','良好','优秀']
+        }
+
+    };
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+
+    // 获取用户信息
+    $(function () {
+        loadData();
+    });
+
+    function loadData(userId) {
+        $.ajax({
+            type: "post",
+            url: "../exam/list?page=1&limit=65535",
+            dataType: "json",
+            success: function (data) {
+                var examRecords = data.data;
+                var topJavaScore = 0; // 最高分
+                var javaScoreSum = 0; // 分数和
+                var lowestJavaScore = 100; // 最低分
+                // 以下分别代表优秀、良好、中等、及格和不及格的人数
+                var ACount = 0; // 优秀
+                var BCount = 0; // 良好
+                var CCount = 0; // 中等
+                var DCount = 0; // 及格
+                var ECount = 0; // 不及格
+
+                $.each(examRecords,function (i, examRecord) {
+                    var score = examRecord.score;
+                    javaScoreSum += score;
+                    if (topJavaScore < score) {
+                        topJavaScore = score;
+                    }
+                    if (lowestJavaScore > score) {
+                        lowestJavaScore = score;
+                    }
+                    if (score < 60) {
+                        ECount++;
+                    } else if (score < 70) {
+                        DCount++;
+                    } else if (score < 80) {
+                        CCount++;
+                    } else if (score < 90) {
+                        BCount++;
+                    } else {
+                        ACount++;
+                    }
+                });
+                var avrageJavaScore = javaScoreSum / examRecords.length;
+
+                $("#topJavaScore").html(topJavaScore);
+                $("#lowestJavaScore").html(lowestJavaScore);
+                $("#avrageJavaScore").html(avrageJavaScore);
+
+                myChart.setOption({
+                    series : [
+                        {
+                            name: '各个分数段人数',
+                            type: 'pie',
+                            radius : '55%',
+                            center: ['50%', '60%'],
+                            data:[
+                                {value:ECount, name:'不及格'},
+                                {value:DCount, name:'及格'},
+                                {value:CCount, name:'中等'},
+                                {value:BCount, name:'良好'},
+                                {value:ACount, name:'优秀'}
+                            ],
+                            itemStyle: {
+                                emphasis: {
+                                    shadowBlur: 10,
+                                    shadowOffsetX: 0,
+                                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                }
+                            }
+                        }
+                    ]
+                })
+            }
+        })
+    }
+
+
+
+</script>
+</body>
+
+</html>

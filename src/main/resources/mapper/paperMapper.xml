@@ -58,9 +58,7 @@
             <if test="allowTime != null">
                 allow_time = #{allowTime},
             </if>
-            <if test="address != null">
-                address = #{address},
-            </if>
+
             <if test="remark != null">
                 remark = #{remark},
             </if>
@@ -74,5 +72,10 @@
     <delete id="deleteOne" parameterType="int">
         delete from t_paper where paper_id = #{paperId}
     </delete>
+
+    <insert id="addPaper" parameterType="paper">
+        insert into t_paper (paper_id, paper_name, course_id,allow_time, score, question_id)
+        values (null, #{paperName}, #{courseId}, #{allowTime}, #{score}, #{questionIds})
+    </insert>
 
 </mapper>
