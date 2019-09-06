@@ -15,7 +15,7 @@
     <select id="getAccessedResources" parameterType="int" resultMap="com.xct.examinationsys.dao.ResourceDao.resourceMap">
         select p.resource_id, r.resource_name, r.resource_type, r.resource_url, r.parent_id
         from t_permission p
-        inner join t_resource r
+        left join t_resource r
         on p.resource_id=r.resource_id
         where p.role_id = #{roleId}
     </select>

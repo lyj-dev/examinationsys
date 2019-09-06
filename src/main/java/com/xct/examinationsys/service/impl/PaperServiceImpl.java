@@ -50,7 +50,7 @@ public class PaperServiceImpl implements PaperService {
         // 从数据库中随机获取各种类的指定数量的题目
         List<Question> singleChoiceNumList = questionService.selectQuestionsByTypeId(1, paper.getCourseId(), paper.getSingleChoiceNum());
         List<Question> multiChoicNumList = questionService.selectQuestionsByTypeId(2, paper.getCourseId(), paper.getMultiChoicNum());
-        List<Question> ToFNumList = questionService.selectQuestionsByTypeId(4, paper.getCourseId(), paper.getToFNum());
+        List<Question> ToFNumList = questionService.selectQuestionsByTypeId(3, paper.getCourseId(), paper.getToFNum());
         List<Question> shortAnswerNumList = questionService.selectQuestionsByTypeId(5, paper.getCourseId(), paper.getShortAnswerNum());
 
         String questionIds;

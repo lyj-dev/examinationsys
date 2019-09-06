@@ -23,9 +23,9 @@
     </resultMap>
     <select id="findAllQuestions" parameterType="question" resultMap="questionMap">
         select q.*, qt.type_name, c.course_name from t_question q
-        join t_question_type qt
+        left join t_question_type qt
         on q.type_id=qt.type_id
-        join t_course c
+        left join t_course c
         on q.course_id=c.course_id
         <where>
             <if test="questionName != null and questionName != ''">
@@ -42,9 +42,9 @@
 
     <select id="selectQuestionById" parameterType="int" resultMap="questionMap">
         select q.*, qt.type_id,qt.type_name, c.course_name from t_question q
-        join t_question_type qt
+        left join t_question_type qt
         on q.type_id=qt.type_id
-        join t_course c
+        left join t_course c
         on q.course_id=c.course_id
         where question_id = #{questionId}
     </select>
@@ -52,9 +52,9 @@
 
     <select id="getQuestions" parameterType="map" resultMap="questionMap">
         select q.*, qt.type_name, c.course_name from t_question q
-        join t_question_type qt
+        left join t_question_type qt
         on q.type_id=qt.type_id
-        join t_course c
+        left join t_course c
         on q.course_id=c.course_id
         <where>
             q.question_id in

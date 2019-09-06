@@ -31,14 +31,14 @@
 
     <select id="getPaperById" parameterType="int" resultMap="paperMap">
         select p.*, c.course_name from t_paper p
-        inner join t_course c
+        LEFT join t_course c
         on p.course_id=c.course_id
         where p.paper_id=#{paperId}
     </select>
 
     <select id="findPaperById" parameterType="int" resultMap="paperMap">
         select p.*, c.course_name from t_paper p
-        inner join t_course c
+        LEFT join t_course c
         on p.course_id=c.course_id
         where paper_id=#{paperId}
     </select>

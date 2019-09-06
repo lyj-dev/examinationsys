@@ -17,11 +17,11 @@
 <div>
     <ol>
         <li v-for="question in questionList">
-            <div>{{question.questionName}}</div>
+            <div>({{question.typeName}}){{question.questionName}}</div>
             <div>{{question.optionA}}</div>
             <div>{{question.optionB}}</div>
-            <div>{{question.optionC}}</div>
-            <div>{{question.optionD}}</div>
+            <div v-if="question.typeId!=3">{{question.optionC}}</div>
+            <div v-if="question.typeId!=3">{{question.optionD}}</div>
             <div>答案： {{question.answer}}</div>
         </li>
     </ol>
@@ -44,7 +44,7 @@
                     url : "../paper/getPaperById" + window.location.search,
                     dataType : "json",
                     success : function(data){
-                        _this.paper = data;
+                        _this.paper = data.info;
                     }
                 });
                 $.ajax({

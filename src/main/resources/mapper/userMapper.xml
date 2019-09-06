@@ -28,8 +28,8 @@
         us.user_state_name
         FROM
         t_user u
-        INNER JOIN t_role r ON u.role_id = r.role_id
-        INNER JOIN t_user_state us ON u.user_state_id=us.user_sate_id
+        JOIN t_role r ON u.role_id = r.role_id
+        JOIN t_user_state us ON u.user_state_id=us.user_sate_id
         <where>
             <if test="userName != null and userName != ''">
                 and u.user_name like CONCAT('%','${userName}','%')
@@ -57,8 +57,8 @@
         us.user_state_name
         FROM
         t_user u
-        INNER JOIN t_role r ON u.role_id = r.role_id
-        INNER JOIN t_user_state us ON u.user_state_id=us.user_sate_id
+        JOIN t_role r ON u.role_id = r.role_id
+        JOIN t_user_state us ON u.user_state_id=us.user_sate_id
         where u.user_Id=#{userId} and (u.role_id=3 or u.role_id=2)
     </select>
 
@@ -75,8 +75,8 @@
         us.user_state_name
         FROM
         t_user u
-        INNER JOIN t_role r ON u.role_id = r.role_id
-        INNER JOIN t_user_state us ON u.user_state_id=us.user_sate_id
+        JOIN t_role r ON u.role_id = r.role_id
+        JOIN t_user_state us ON u.user_state_id=us.user_sate_id
         where u.user_Id=#{userId}
     </select>
 

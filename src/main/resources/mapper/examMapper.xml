@@ -28,9 +28,9 @@
         c.course_name
         FROM
         t_exam_record e
-        INNER JOIN t_user u ON e.user_id = u.user_id
-        INNER JOIN t_paper p ON e.paper_id = p.paper_id
-        INNER JOIN t_course c ON p.course_id = c.course_id
+        JOIN t_user u ON e.user_id = u.user_id
+        JOIN t_paper p ON e.paper_id = p.paper_id
+        JOIN t_course c ON p.course_id = c.course_id
         <where>
             <if test="examName != null and examName != ''">
                 and e.exam_name like CONCAT('%','${examName}','%')
@@ -48,16 +48,16 @@
     </select>
     <select id="selectExamById" parameterType="int" resultMap="examMap">
         SELECT
-        e.*,
-        u.user_name,
-        p.course_id,
-        p.paper_name,
-        c.course_name
+            e.*,
+            u.user_name,
+            p.course_id,
+            p.paper_name,
+            c.course_name
         FROM
-        t_exam_record e
-        INNER JOIN t_user u ON e.user_id = u.user_id
-        INNER JOIN t_paper p ON e.paper_id = p.paper_id
-        INNER JOIN t_course c ON p.course_id = c.course_id
+            t_exam_record e
+            JOIN t_user u ON e.user_id = u.user_id
+             JOIN t_paper p ON e.paper_id = p.paper_id
+            JOIN t_course c ON p.course_id = c.course_id
         where e.exam_id=#{examId}
     </select>
 
