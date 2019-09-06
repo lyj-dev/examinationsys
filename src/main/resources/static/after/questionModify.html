@@ -16,7 +16,7 @@
 	<div class="layui-form-item">
 		<label class="layui-form-label">科目：</label>
 		<div class="layui-input-block">
-			<select name="courseId" id="courseNameHide" class="courseName" lay-filter="aihao">
+			<select name="courseId" id="courseNameHide" class="courseName" lay-filter="aihao" style="width: 300px">
 				<option value="">请选择科目...</option>
 
 			</select>
@@ -25,7 +25,7 @@
 	<div class="layui-form-item">
 		<label class="layui-form-label">题目类型：</label>
 		<div class="layui-input-block">
-			<select name="typeId" id="typeNameHide" class="typeName" lay-filter="aihao">
+			<select name="typeId" id="typeNameHide" class="typeName" lay-filter="aihao"  style="width: 300px">
 				<option value="">请选择题目类型...</option>
 
 			</select>
@@ -34,57 +34,57 @@
 	<div class="layui-form-item">
 		<label class="layui-form-label">题干：</label>
 		<div class="layui-input-block">
-			<input type="text" name="questionName" lay-verify="title" autocomplete="off" placeholder="请输入试卷名" class="layui-input">
+			<input type="text" name="questionName" lay-verify="title" class="layui-input"  style="width: 300px">
 		</div>
 	</div>
 	<div class="layui-form-item">
 		<label class="layui-form-label">选项A：</label>
 		<div class="layui-input-block">
-			<input type="text" name="optionA" lay-verify="title" autocomplete="off" placeholder="请输入试卷名" class="layui-input">
+			<input type="text" name="optionA" lay-verify="title"  class="layui-input"  style="width: 300px">
 		</div>
 	</div>
 	<div class="layui-form-item">
 		<label class="layui-form-label">选项B：</label>
 		<div class="layui-input-block">
-			<input type="text" name="optionB" lay-verify="title" autocomplete="off" placeholder="请输入试卷名" class="layui-input">
+			<input type="text" name="optionB" lay-verify="title"  class="layui-input"  style="width: 300px">
 		</div>
 	</div>
 	<div class="layui-form-item">
 		<label class="layui-form-label">选项C：</label>
 		<div class="layui-input-block">
-			<input type="text" name="optionC" lay-verify="title" autocomplete="off" placeholder="请输入试卷名" class="layui-input">
+			<input type="text" name="optionC" lay-verify="title"  class="layui-input"  style="width: 300px">
 		</div>
 	</div>
 	<div class="layui-form-item">
 		<label class="layui-form-label">选项D：</label>
 		<div class="layui-input-block">
-			<input type="text" name="optionD" lay-verify="title" autocomplete="off" placeholder="请输入试卷名" class="layui-input">
+			<input type="text" name="optionD" lay-verify="title" class="layui-input"  style="width: 300px">
 		</div>
 	</div>
 
 	<div class="layui-form-item">
 		<label class="layui-form-label">答案：</label>
 		<div class="layui-input-block">
-			<input type="text" name="answer" lay-verify="title" autocomplete="off" placeholder="请输入试卷名" class="layui-input">
+			<input type="text" name="answer" lay-verify="title" class="layui-input"  style="width: 300px">
 		</div>
 	</div>
 	<div class="layui-form-item">
 		<label class="layui-form-label">详解：</label>
 		<div class="layui-input-block">
-			<input type="text" name="answerDetail" lay-verify="title" autocomplete="off" placeholder="请输入试卷名" class="layui-input">
+			<input type="text" name="answerDetail" lay-verify="title"  class="layui-input"  style="width: 300px">
 		</div>
 	</div>
 
 	<div class="layui-form-item">
-		<label class="layui-form-label">难度：</label>
+		<label class="layui-form-label">分数：</label>
 		<div class="layui-input-block">
-			<input type="text" name="difficulty" lay-verify="title" autocomplete="off" placeholder="请输入试卷名" class="layui-input">
+			<input type="text" name="score" lay-verify="title" class="layui-input"  style="width: 300px">
 		</div>
 	</div>
 	<div class="layui-form-item">
 		<label class="layui-form-label">说明：</label>
 		<div class="layui-input-block">
-			<input type="text" name="remark" lay-verify="title" autocomplete="off" placeholder="请输入试卷名" class="layui-input">
+			<input type="text" name="remark" lay-verify="title" class="layui-input"  style="width: 300px">
 		</div>
 	</div>
 
@@ -105,9 +105,9 @@
             ,laydate = layui.laydate
             ,$ = layui.jquery;
 
-        findOne();
-        InitForm();
-        InitTypeForm();
+
+		InitForm();
+		InitTypeForm();
         function InitForm() {
             $.ajax({
                 type: 'post',
@@ -134,7 +134,7 @@
 
                 }
             })
-        };
+        }
 
         function InitTypeForm() {
             $.ajax({
@@ -162,7 +162,7 @@
 
                 }
             })
-        };
+        }
 
 
         function findOne() {
@@ -174,10 +174,6 @@
                     if (data.code == 1) {
                         //表单初始赋值
                         form.val('example', data.info);
-
-                    } else {
-                        layer.msg(data.info);
-
                     }
                 }
             })
@@ -202,7 +198,7 @@
 
                         layer.alert("修改失败", {icon: 2, time: 2000});
                     }
-                },
+                }
 
             });
             return false;

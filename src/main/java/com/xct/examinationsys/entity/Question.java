@@ -12,13 +12,11 @@ public class Question {
     private String optionD;
     private String answer;
     private String answerDetail;
-    private String userAnswer;
     private Integer courseId;
     private String courseName;
     private Integer typeId;
     private String typeName;
     private Integer difficulty;
     private String remark;
-    private String gradeId;
     private Integer score;
 }

@@ -145,4 +145,33 @@
         select * From t_question where type_id=#{typeId} and course_id=#{courseId} Order By rand() Limit #{numbers}
     </select>
 
+    <insert id="addQuestion" parameterType="question">
+        insert into t_question (
+        question_name,
+        option_a,
+        option_b,
+        option_c,
+        option_d,
+        answer,
+        answer_detail,
+        course_id,
+        type_id,
+        score,
+        difficulty,
+        remark)
+        values
+            (#{questionName},
+            #{optionA},
+            #{optionB},
+            #{optionC},
+            #{optionD},
+            #{answer},
+            #{answerDetail},
+            #{courseId},
+            #{typeId},
+            #{score},
+            0,
+            #{remark})
+    </insert>
+
 </mapper>

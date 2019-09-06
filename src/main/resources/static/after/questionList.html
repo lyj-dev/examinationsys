@@ -46,13 +46,6 @@
             <div class="layui-inline" lay-event="add">
                 <i class="layui-icon layui-icon-add-1"></i>
             </div>
-<!--            <div class="layui-inline" lay-event="import">-->
-<!--                <button type="button" class="layui-btn" id="test3"><i class="layui-icon"></i>导入Excel文件</button>-->
-<!--            </div>-->
-            <div class="layui-inline" lay-event="import">
-                <i class="layui-icon layui-icon-upload-circle"></i>
-            </div>
-
         </div>
     </div>
 </script>
@@ -134,7 +127,7 @@
                         type: 2 //此处以iframe举例
                         , title: '添加视频'
                         , area: ['720px', '620px']
-                        , content: '../video/query.do'
+                        , content: 'questionModify.html'
                     });
                     break;
                 case 'delete':
@@ -162,7 +155,7 @@
         table.on('tool(test)', function(obj){
             var data = obj.data;
             if(obj.event === 'del'){
-                layer.confirm('删除 [id]：', function (index) {
+                layer.confirm('删除？：', function (index) {
                     obj.del();
                     layer.close(index);
                     //发送请求到后台
@@ -230,6 +223,11 @@
             ,before: function(obj){
                 layer.load();
             }
+            ,done: function(data){
+            //上传完毕回调
+                layer.alert(data.info);
+        }
+
         });
     });
 </script>

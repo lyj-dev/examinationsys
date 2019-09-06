@@ -45,7 +45,7 @@ public class QuestionController {
 
     @RequestMapping("/import")
     @ResponseBody
-    public String importExcel(@RequestParam("file") MultipartFile upfile){
+    public JsonResult<String> importExcel(@RequestParam("file") MultipartFile upfile){
 
         // 获取上传文件的输入流对象
         try {
@@ -68,7 +68,7 @@ public class QuestionController {
             e.printStackTrace();
         }
 
-        return "导入成功！";
+        return new JsonResult<>(1, "导入成功！");
     }
 
     @RequestMapping("/query")
